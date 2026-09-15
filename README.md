@@ -1,3 +1,26 @@
+# Lancement local rapide
+
+### Démarrer
+
+```bash
+TCHAP_PUBLIC_HOST="$(hostname -I | awk '{print $1}')" ./run-tchap.sh
+```
+
+### Arrêter
+
+Appuyez sur `Ctrl+C`, puis exécutez :
+
+```bash
+./run-tchap.sh matrix-stop
+```
+
+### Utilisateurs de test
+
+| Utilisateur        | Mot de passe      | Identifiant à utiliser pour démarrer une conversation |
+| ------------------ | ----------------- | ----------------------------------------------------- |
+| `alice@local.test` | `AliceLocal2026!` | `@bob:localhost`                                      |
+| `bob@local.test`   | `BobLocal2026!`   | `@alice:localhost`                                    |
+
 <p align="center">
   <a href="https://github.com/tchapgouv">
     <img alt="tchap-logo" src="./apps/web/res/themes/tchap/img/logos/tchap-logo.svg" width="300" />

@@ -1,9 +1,12 @@
 /build
 /cert.pem
 /dist
+/.tchap-matrix
+/tchap-*.tar.gz
 /key.pem
 /lib
 node_modules
+__pycache__/
 /.npmrc
 /*.log
 package-lock.json

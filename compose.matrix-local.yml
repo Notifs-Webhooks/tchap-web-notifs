@@ -1,0 +1,15 @@
+services:
+    synapse:
+        image: ghcr.io/element-hq/synapse:develop@sha256:926d95954cba30a2568dbe907da6628d8e10e06f2b19901f0ec61eb2993be450
+        container_name: tchap-matrix-local
+        restart: unless-stopped
+        environment:
+            UID: "${TCHAP_UID:-1000}"
+            GID: "${TCHAP_GID:-1000}"
+        ports:
+            # Synapse already returns Access-Control-Allow-Origin: * on Matrix client APIs.
+            # Expose it on the LAN so browsers on other machines can reach it.
+            - "0.0.0.0:8008:8008"
+        volumes:
+            # Repository-local so an extracted archive works on any Linux path.
+            - ./.tchap-matrix:/data

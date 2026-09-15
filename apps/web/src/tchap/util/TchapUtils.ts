@@ -74,6 +74,11 @@ export default class TchapUtils {
     static fetchHomeserverForEmail = async (
         email: string,
     ): Promise<void | { base_url: string; server_name: string }> => {
+        const localEmailHomeserver = SdkConfig.get()["local_email_homeserver"];
+        if (localEmailHomeserver) {
+            return localEmailHomeserver;
+        }
+
         const randomHomeServer = this.randomHomeServer();
         const infoUrl = "/_matrix/identity/api/v1/info?medium=email&address=";
         // TODO for dev only, to remove when mas is fixed with sydent
