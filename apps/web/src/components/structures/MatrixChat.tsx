@@ -1912,14 +1912,10 @@ export default class MatrixChat extends React.PureComponent<IProps, IState> {
                 params: params,
             });
         } else if (screen === "login") {
-            // :TCHAP:
-            // dis.dispatch({
-            //     action: "start_login",
-            //     params: params,
-            // });
-            // PerformanceMonitor.instance.start(PerformanceEntryNames.LOGIN);
+            // :TCHAP: use password login for the isolated local Matrix setup.
             dis.dispatch({
-                action: "email_precheck_sso"
+                action: SdkConfig.get()["local_password_login"] ? "start_login" : "email_precheck_sso",
+                params,
             });
             // end :TCHAP:
         } else if (screen === "forgot_password") {

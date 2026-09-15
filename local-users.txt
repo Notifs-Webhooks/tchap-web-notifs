@@ -1,0 +1,11 @@
+Comptes Tchap Matrix locaux
+============================
+Homeserver: http://localhost:8008
+
+Alice
+Email: alice@local.test
+Mot de passe: AliceLocal2026!
+
+Bob
+Email: bob@local.test
+Mot de passe: BobLocal2026!
