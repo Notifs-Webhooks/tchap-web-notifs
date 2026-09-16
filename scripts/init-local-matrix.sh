@@ -33,6 +33,25 @@ with path.open("a") as stream:
 PY
 fi
 
+# This Tchap client still loads MXC avatars through the unauthenticated
+# /_matrix/media/v3 routes. Recent Synapse images default to authenticated
+# media and return 404 on those legacy routes, so keep them enabled locally.
+MATRIX_CONFIG="$data_dir/homeserver.yaml" python3 - <<'PY'
+import os
+import re
+from pathlib import Path
+
+path = Path(os.environ["MATRIX_CONFIG"])
+config = path.read_text()
+pattern = r"(?m)^enable_authenticated_media:\s*.*$"
+if re.search(pattern, config):
+    updated = re.sub(pattern, "enable_authenticated_media: false", config)
+else:
+    updated = config.rstrip() + "\n\nenable_authenticated_media: false\n"
+if updated != config:
+    path.write_text(updated)
+PY
+
 docker compose -f compose.matrix-local.yml up -d
 for _ in {1..60}; do
     if curl -fsS http://127.0.0.1:8008/_matrix/client/versions >/dev/null 2>&1; then
