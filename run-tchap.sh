@@ -14,8 +14,9 @@ ensure_node_dependencies() {
 
 cd "$ROOT_DIR"
 
-public_host="${TCHAP_PUBLIC_HOST:-$(ip route get 1.1.1.1 2>/dev/null | sed -n 's/.* src \([^ ]*\).*/\1/p' | head -n 1)}"
-public_host="${public_host:-127.0.0.1}"
+export TCHAP_PUBLIC_HOST="${TCHAP_PUBLIC_HOST:-$(hostname -I 2>/dev/null | awk '{print $1}')}"
+TCHAP_PUBLIC_HOST="${TCHAP_PUBLIC_HOST:-127.0.0.1}"
+public_host="$TCHAP_PUBLIC_HOST"
 
 mode="${1:-static}"
 if (($# > 0)); then shift; fi
@@ -109,8 +110,11 @@ PY
     matrix-stop)
         docker compose -f compose.matrix-local.yml stop
         ;;
+    stop)
+        docker compose -f compose.matrix-local.yml stop
+        ;;
     *)
-        echo "Usage: $0 [dev|static|build|matrix-stop] [arguments...]" >&2
+        echo "Usage: $0 [dev|static|build|matrix-stop|stop] [arguments...]" >&2
         exit 2
         ;;
 esac

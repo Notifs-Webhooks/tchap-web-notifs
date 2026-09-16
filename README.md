@@ -3,7 +3,7 @@
 ### Démarrer
 
 ```bash
-TCHAP_PUBLIC_HOST="$(hostname -I | awk '{print $1}')" ./run-tchap.sh
+./run-tchap.sh
 ```
 
 ### Arrêter
